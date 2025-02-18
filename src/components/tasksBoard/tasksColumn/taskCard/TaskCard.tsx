@@ -24,7 +24,36 @@ function TaskCard({task}: Props) {
         transform: CSS.Transform.toString(transform),
     };
 
-    const { title, content } = task;
+    const { title, id, created_at, commentsCount, owner } = task;
+
+    function getFormatedDate( date: string ) {
+        const dateNow = new Date(),
+            dateCreated = new Date(date);
+
+        const yyyy = dateCreated.getFullYear(),
+            mm = dateCreated.getMonth() + 1, // Months start at 0!
+            dd = dateCreated.getDate(),
+            formattedDate = dd + '/' + mm + '/' + yyyy;
+
+        const diff = Math.abs(dateNow.valueOf() - dateCreated.valueOf());
+        const diffDays = Math.floor(diff / (24*60*60*1000));
+        let pluralEnding = diffDays === 1 ? '' : 's';
+
+        let res = 'opened ';
+
+        if (diff > 0 && diff < 60000 * 5) { ///less than 5 mins
+            res += 'right now';
+        } else if (diff < 60000 * 60 * 20) {//less than 1 day
+            res += 'today';
+        } else if (diff > 60000 * 60 * 20 && diff < 60000 * 60 * 20 * 10) {//less than 1 day
+            res += `${diffDays} day${pluralEnding} ago`;
+        } else {
+            res += formattedDate;
+        }
+        return res;
+    }
+
+    const created = getFormatedDate(created_at);
 
     return (
         <div
@@ -33,8 +62,15 @@ function TaskCard({task}: Props) {
             {...attributes}
             {...listeners}>
             <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded'>
-                <h5>{title}</h5>
-                <p>{content}</p>
+                <h6>{title}</h6>
+
+                <p>
+                    <span>{`#${id}`} </span>
+                    <span>{created}</span>
+                </p>
+
+
+                <p>{`${owner.login || ''}  Comments: ${commentsCount}`}</p>
             </div>
         </div>
     );
