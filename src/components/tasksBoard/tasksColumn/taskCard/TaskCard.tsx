@@ -1,14 +1,41 @@
-import {Task} from "../../../../types";
+import { TaskType } from  "../../../../types";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-type TaskCardProps =  {
-   task: Task;
+interface Props {
+    task: TaskType;
 }
-function TaskCard({task}: TaskCardProps) {
-    return (
-        <div className="">
-            <h3 className="">{task.title}</h3>
+function TaskCard({task}: Props) {
+    const {setNodeRef,
+        attributes,
+        listeners,
+        transform,
+        transition,
+    } = useSortable({
+        id: task.id,
+        data: {
+            type: 'Task',
+            task,
+        },
+    });
 
-            <p>{task.description}</p>
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform),
+    };
+
+    const { title, content } = task;
+
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}>
+            <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded'>
+                <h5>{title}</h5>
+                <p>{content}</p>
+            </div>
         </div>
     );
 }

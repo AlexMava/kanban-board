@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1d7a20b-db2a-4f5e-a897-991d624822cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/footer/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/header/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/tasksBoard/TasksBoard.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/tasksBoard/TasksBoard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/TasksColumn.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tasksBoard/TasksBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasksBoard/TasksBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/TasksColumn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/TasksColumn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,23 +40,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/projects/test-tasks/kanban-board",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
-    "ts.external.directory.path": "D:\\projects\\test-tasks\\kanban-board\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projects/sofenty/shop.cheesebakery.com.ua&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\projects\\test-tasks\\kanban-board\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -97,7 +94,10 @@
       <workItem from="1739540900005" duration="1078000" />
       <workItem from="1739542283233" duration="48000" />
       <workItem from="1739542354066" duration="30000" />
-      <workItem from="1739542424123" duration="9407000" />
+      <workItem from="1739542424123" duration="10119000" />
+      <workItem from="1739613925270" duration="24472000" />
+      <workItem from="1739780714297" duration="32728000" />
+      <workItem from="1739869606032" duration="8619000" />
     </task>
     <servers />
   </component>

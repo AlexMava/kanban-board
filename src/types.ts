@@ -1,13 +1,13 @@
-export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type Id = string | number;
 
-export type Task = {
-    id: string;
-    status: TaskStatus;
+export type ColumnType = {
+    id: Id;
     title: string;
-    description: string;
 };
 
-export type Column = {
-    id: TaskStatus;
+export type TaskType = {
+    id: Id;
+    columnId: Id;
     title: string;
+    content: string;
 };

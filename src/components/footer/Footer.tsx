@@ -8,13 +8,13 @@ function Footer() {
     }, []);
 
     return (
-        <header className="py-4">
+        <footer className="py-4">
             <Container>
                 <Row>
                     <Col><p>{`© ${year}. All Rights Reserved.`}</p></Col>
                 </Row>
             </Container>
-        </header>
+        </footer>
     );
 }
 

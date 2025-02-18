@@ -1,64 +1,115 @@
-import {useState} from "react";
-
+import { useState } from "react";
+import { ColumnType, TaskType } from "../../types";
 import TasksColumn from "./tasksColumn/TasksColumn";
 
-import type {Column as ColumnType, Task} from "../../types";
+import { DndContext, DragOverEvent } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 
 const COLUMNS: ColumnType[] = [
-    { id: 'TODO', title: 'ToDo' },
-    { id: 'IN_PROGRESS', title: 'In Progress' },
-    { id: 'DONE', title: 'Done' },
+    {id: 'TODO', title: 'ToDo'},
+    {id: 'IN_PROGRESS', title: 'In Progress'},
+    {id: 'DONE', title: 'Done'},
 ];
 
-const INITIAL_TASKS: Task[] = [
+const INITIAL_TASKS: TaskType[] = [
     {
         id: '1',
-        title: 'Research Project',
-        description: 'Gather requirements and create initial documentation',
-        status: 'TODO',
+        title: 'Task1',
+        content: 'Content1',
+        columnId: 'TODO',
     },
     {
         id: '2',
-        title: 'Design System',
-        description: 'Create component library and design tokens',
-        status: 'TODO',
+        title: 'Task2',
+        content: 'Content2',
+        columnId: 'TODO',
     },
     {
         id: '3',
-        title: 'API Integration',
-        description: 'Implement REST API endpoints',
-        status: 'IN_PROGRESS',
+        title: 'Task3',
+        content: 'Content3',
+        columnId: 'TODO',
     },
     {
         id: '4',
-        title: 'Testing',
-        description: 'Write unit tests for core functionality',
-        status: 'DONE',
+        title: 'Task4',
+        content: 'Content4',
+        columnId: 'IN_PROGRESS',
     },
+    {
+        id: '5',
+        title: 'Task5',
+        content: 'Content5',
+        columnId: 'DONE',
+    },
+
 ];
 
 function TasksBoard() {
-    const [tasks, setTasks] = useState(INITIAL_TASKS);
+    const [tasks, setTasks] = useState<TaskType[]>(INITIAL_TASKS);
 
     return (
         <section>
             <div className="container">
                 <div className="row">
-                    <div className="col d-flex justify-content-between">
-                        {COLUMNS.map((column) => {
-                            return (
-                                <TasksColumn
-                                    key={column.id}
-                                    column={column}
-                                    tasks={tasks.filter((task) => task.status === column.id)}
-                                />
-                            );
-                        })}
-                    </div>
+                    <DndContext
+                        onDragOver={onDragOver}
+                    >
+                        <div className="d-flex gap-3">
+                            <>
+                                {COLUMNS.map((col) => {
+                                    return (<TasksColumn
+                                        key={col.id}
+                                        column={col}
+                                        tasks={tasks.filter((task) => task.columnId === col.id)}
+                                    />)
+                                })}
+                            </>
+                        </div>
+                    </DndContext>
                 </div>
             </div>
         </section>
     );
-}
+    function onDragOver(event: DragOverEvent) {
+        const {active, over} = event;
+        if (!over) return;
 
+        const activeId = active.id;
+        const overId = over.id;
+
+        if (activeId === overId) return;
+
+        const isActiveTask = active.data.current?.type === 'Task';
+        const isOverTask = over.data.current?.type === 'Task';
+
+        if (!isActiveTask) return;
+
+        //Dropping a task over another task
+        if (isActiveTask && isOverTask) {
+            setTasks((tasks) => {
+                const activeIndex = tasks.findIndex((t) => t.id === activeId);
+                const overIndex = tasks.findIndex((t) => t.id === overId);
+
+                if (tasks[activeIndex].columnId !== tasks[overIndex].columnId) {
+                    tasks[activeIndex].columnId = tasks[overIndex].columnId;
+                }
+
+                return arrayMove(tasks, activeIndex, overIndex);
+            });
+        }
+
+        const isOverAColumn = over.data.current?.type === 'Column';
+        //Dropping a task over another column
+        if (isActiveTask && isOverAColumn) {
+            setTasks((tasks) => {
+                const activeIndex = tasks.findIndex((t) => t.id === activeId);
+
+                tasks[activeIndex].columnId = overId;
+
+                return arrayMove(tasks, activeIndex, activeIndex);
+            });
+        }
+    }
+}
 export default TasksBoard;
