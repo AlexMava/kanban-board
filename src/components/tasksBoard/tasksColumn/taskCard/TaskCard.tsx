@@ -2,6 +2,7 @@ import { TaskType } from  "../../../../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+
 interface Props {
     task: TaskType;
 }
@@ -24,7 +25,7 @@ function TaskCard({task}: Props) {
         transform: CSS.Transform.toString(transform),
     };
 
-    const { title, id, created_at, commentsCount, owner } = task;
+    const { title, id, url, created_at, commentsCount, owner } = task;
 
     function getFormatedDate( date: string ) {
         const dateNow = new Date(),
@@ -62,15 +63,19 @@ function TaskCard({task}: Props) {
             {...attributes}
             {...listeners}>
             <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded'>
-                <h6>{title}</h6>
+                <a href={url} target='_blank'>
+                    <h6>{title}</h6>
+                </a>
 
                 <p>
                     <span>{`#${id}`} </span>
                     <span>{created}</span>
                 </p>
 
-
-                <p>{`${owner.login || ''}  Comments: ${commentsCount}`}</p>
+                <p>
+                    <a href={owner.homepage} target='_blank'>{`${owner.login}`}</a>
+                    <span>{` Comments: ${commentsCount}`}</span>
+                </p>
             </div>
         </div>
     );

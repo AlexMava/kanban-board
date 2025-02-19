@@ -6,11 +6,7 @@ function Header() {
             <Container>
                 <Row>
                     <Col>
-                        <form>
-                            <input type="text" className="" id="" placeholder="Enter Repo URL"/>
-
-                            <button type="submit" className="btn btn-primary">Load issues</button>
-                        </form>
+                        <h1>Github Issues Kanban Board</h1>
                     </Col>
                 </Row>
             </Container>

@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { ColumnType, TaskType } from "../../types";
+import { ColumnType, TaskType, RepoDetailsType } from "../../types";
 import TasksColumn from "./tasksColumn/TasksColumn";
 
 import { DndContext, DragOverEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 import KanbanService from "../../services/KanbanService";
+
+import './TasksBoard.css';
 
 const taskService = new KanbanService();
 
@@ -15,68 +17,90 @@ const COLUMNS: ColumnType[] = [
     {id: 'DONE', title: 'Done'},
 ];
 
-// const INITIAL_TASKS: TaskType[] = [
-//     {
-//         id: '1',
-//         title: 'Task1',
-//         content: 'Content1',
-//         columnId: 'TODO',
-//     },
-//     {
-//         id: '2',
-//         title: 'Task2',
-//         content: 'Content2',
-//         columnId: 'TODO',
-//     },
-//     {
-//         id: '3',
-//         title: 'Task3',
-//         content: 'Content3',
-//         columnId: 'TODO',
-//     },
-//     {
-//         id: '4',
-//         title: 'Task4',
-//         content: 'Content4',
-//         columnId: 'IN_PROGRESS',
-//     },
-//     {
-//         id: '5',
-//         title: 'Task5',
-//         content: 'Content5',
-//         columnId: 'DONE',
-//     },
-//
-// ];
-
 function TasksBoard() {
-    const [tasks, setTasks] = useState<TaskType[]>([]);
+    const emptyRepo = {
+        id: 0,
+        name: ' ',
+        stargazers_count: 0,
+        html_url: ' ',
+        svn_url: ' ',
+        organization: {
+            url: ' ',
+            login: ' ',
+        }
+    }
 
-    useEffect(() => {
-        onRequest();
-    }, [])
-    const onRequest = () => {
-        taskService.getAllIssues()
+    const [tasks, setTasks] = useState<TaskType[]>([]);
+    const [repoDetails, setRepoDetails] = useState<RepoDetailsType>(emptyRepo);
+    const [searchString, setSearchString] = useState<string>('');
+
+    // useEffect(() => {
+    //     onRequest('facebook', 'react');
+    // }, [])
+    const onRequest = (url: string) => {
+        taskService.getAllIssues(url)
             .then(onIssuesLoaded)
-            // .then(res => res.forEach((item: any) => console.log(item)))
-            .catch(() => console.log('Error by saving data to the state'))
-        //fix any-type
+            .catch(() => console.log('Error by saving issues to the state'))
+
+        taskService.getRepoDetails(url)
+            .then(onRepoLoaded)
+            .catch(() => console.log('Error by saving repo-details to the state'))
     }
 
     const onIssuesLoaded = (newIssues: TaskType[]) => {
-        setTasks(issues => [...issues, ...newIssues]);
+        // setTasks(issues => [...issues, ...newIssues]);
+        setTasks(newIssues);
     }
+
+    const onRepoLoaded = (repo: RepoDetailsType) => {
+        setRepoDetails(repo);
+    }
+
+    const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+        setSearchString(event.target.value);
+    }
+
+    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onRequest(searchString.replace('https://github.com/', 'https://api.github.com/repos/'));
+    }
+
+    const {name, html_url,  stargazers_count, organization } = repoDetails;
 
     return (
         <section>
             <div className="container">
+                <div className="row mb-3">
+                    <div className="col">
+                        <form onSubmit={(e) => handleSubmit(e)} className='kanban__search-form'>
+                            <input onChange={handleChange} type="text" className="" id="searchInput"
+                                   placeholder="Enter Github Repo URL" value={searchString}/>
+
+                            <button type="submit" className="btn btn-primary">Load issues</button>
+                        </form>
+                        <p>As example copy this URL: <code>https://github.com/facebook/react</code></p>
+                    </div>
+                </div>
+
+                <div className="row mb-3">
+                    <div className="col">
+                    <p>
+                            <a href={organization.url}>{organization.login}</a>
+                            <span>{` > `}</span>
+                            <a href={html_url}>{name}</a>
+
+                            <b>&emsp;{`${stargazers_count} stars`}</b>
+                        </p>
+                    </div>
+                </div>
+
                 <div className="row">
                     <DndContext
                         onDragOver={onDragOver}
                     >
                         <div className="d-flex gap-3">
                             <>
-                                {COLUMNS.map((col) => {
+                            {COLUMNS.map((col) => {
                                     return (<TasksColumn
                                         key={col.id}
                                         column={col}

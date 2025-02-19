@@ -1,0 +1,11 @@
+.kanban__search-form {
+    display: flex;
+    gap: 20px;
+}
+.kanban__search-form button {
+    width: 200px;
+}
+
+.kanban__search-form input {
+    width: calc(100% - 200px);
+}
