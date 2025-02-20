@@ -37,20 +37,11 @@ function TasksBoard() {
     const API_URL = 'http://localhost:5000';
 
     useEffect(() => {
+        // onRequest(searchString.replace('https://github.com/', 'https://api.github.com/repos/'));
+    }, [tasks])
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(repoDetails)
-        };
-
-        if (repoDetails.id && repoDetails.name) {
-            fetch(`${API_URL}/api/kanbanboard/AddRepo`, requestOptions)
-                .then(response => response.json())
-                .then(data => {console.log('repoDetails:', repoDetails)});
-        }
-    }, [repoDetails])
     const onRequest = (url: string) => {
+        console.log('onRequest logger');
         taskService.getAllIssues(url)
             .then(onIssuesLoaded)
             .catch(() => console.log('Error by saving issues to the state'))
@@ -61,13 +52,31 @@ function TasksBoard() {
     }
 
     const onIssuesLoaded = (newIssues: TaskType[]) => {
-        // setTasks(issues => [...issues, ...newIssues]);
+        const data = {...repoDetails, issues: tasks}
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+
+        if (tasks.length > 0 && repoDetails.id && repoDetails.name) {
+            fetch(`${API_URL}/api/kanbanboard/AddRepo`, requestOptions)
+                .then(response => response.json())
+                .then(data => {console.log('repoDetails:', repoDetails)})
+                .catch(() => console.log('Error can not fetch a data from server'))
+        }
+
+        //Get items from our DB
+        fetch(`${API_URL}/api/kanbanboard/GetRepos`)
+            .then(response => response.json())
+            .then(data => {setTasks(data[0].issues)})
+            .catch(() => console.log('Error can not fetch a data from server'));
+
         setTasks(newIssues);
     }
 
     const onRepoLoaded = (repo: RepoDetailsType) => {
         setRepoDetails(repo);
-        console.log(repo)
     }
 
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -111,6 +120,7 @@ function TasksBoard() {
                 <div className="row">
                     <DndContext
                         onDragOver={onDragOver}
+                        onDragEnd={onDragEnd}
                     >
                         <div className="d-flex gap-3">
                             <>
@@ -167,6 +177,10 @@ function TasksBoard() {
                 return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
+    }
+
+    function onDragEnd() {
+        console.log('onDragEnd logger')
     }
 }
 export default TasksBoard;

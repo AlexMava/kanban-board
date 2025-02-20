@@ -1,6 +1,4 @@
 export default class KanbanService {
-    _apiBace = 'https://api.github.com/repos';
-
     getResource = async (url: string) => {
         let res = await fetch(url);
 
@@ -19,8 +17,6 @@ export default class KanbanService {
 
     getAllIssues = async (url: string) => {
         const res = await this.getResource(`${url}/issues?state=all&per_page=50`);
-
-        console.log(res);
 
         return res.map(this._transformIssue);
     }

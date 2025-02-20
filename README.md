@@ -5,9 +5,10 @@ Drag-n-Drop functionality is working inside one column, and between columns as w
 All changes, that users made will store in the DB
 
 ## Available Scripts
-Go to these directory:
+Go to these directories:
 
 Server-part directory: /server
+
 Client-part directory: /client
 
-Node, Express, React, MongoDB, TypeScript, CSS
+Stack: Node, Express, React, MongoDB, TypeScript, Bootstrap, CSS
