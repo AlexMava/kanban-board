@@ -34,9 +34,22 @@ function TasksBoard() {
     const [repoDetails, setRepoDetails] = useState<RepoDetailsType>(emptyRepo);
     const [searchString, setSearchString] = useState<string>('');
 
-    // useEffect(() => {
-    //     onRequest('facebook', 'react');
-    // }, [])
+    const API_URL = 'http://localhost:5000';
+
+    useEffect(() => {
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(repoDetails)
+        };
+
+        if (repoDetails.id && repoDetails.name) {
+            fetch(`${API_URL}/api/kanbanboard/AddRepo`, requestOptions)
+                .then(response => response.json())
+                .then(data => {console.log('repoDetails:', repoDetails)});
+        }
+    }, [repoDetails])
     const onRequest = (url: string) => {
         taskService.getAllIssues(url)
             .then(onIssuesLoaded)
@@ -54,6 +67,7 @@ function TasksBoard() {
 
     const onRepoLoaded = (repo: RepoDetailsType) => {
         setRepoDetails(repo);
+        console.log(repo)
     }
 
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {

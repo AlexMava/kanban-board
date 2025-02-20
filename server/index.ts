@@ -5,6 +5,8 @@ const multer = require('multer');
 
 var app=Express();
 app.use(cors());
+app.use(Express.json())
+app.use(Express.urlencoded({ extended: true }))
 
 const PORT = process.env.PORT,
     MONGOCLUSTER = process.env.MONGOCLUSTER,
@@ -33,17 +35,23 @@ app.get('/api/kanbanboard/GetOneRepo', (request, response) => {
         id: request.body.id
     })
         .then(function (doc) {
-            if(!doc) console.log('No record found.');
+            if(!doc)
+                console.log('No record found.');
+
+            response.send(response);
         })
 });
 app.post('/api/kanbanboard/AddRepo', multer().none(), (request, response) =>{
-    database.collection('repos').count({}, function (error, numOfDocs) {
-        database.collection('repos').insertOne({
-            id: (numOfDocs + 1).toString(),
-            content: request.body.newRepo
-        });
-        response.json('Added Successfully!');
-    })
+    try {
+        database.collection('repos').count({}, function () {
+            database.collection('repos').insertOne(request.body);
+            response.json('Added Successfully!');
+            console.log('db-collection', request.body);
+        })
+
+    } catch (e) {
+        console.log('Error, something went wrong!')
+    }
 })
 
 app.delete('/api/kanbanboard/DeleteRepo', (request, response) => {

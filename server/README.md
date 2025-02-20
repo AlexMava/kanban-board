@@ -2,6 +2,6 @@
 
 ## Available Scripts
 
-In the project directory (server), you can run:
+To start server run:
 
 ### `npm run serverStart`
