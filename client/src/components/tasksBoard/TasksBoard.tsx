@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ColumnType, TaskType, RepoDetailsType } from "../../types";
 import TasksColumn from "./tasksColumn/TasksColumn";
 
@@ -36,10 +36,6 @@ function TasksBoard() {
 
     const API_URL = 'http://localhost:5000';
 
-    useEffect(() => {
-        // onRequest(searchString.replace('https://github.com/', 'https://api.github.com/repos/'));
-    }, [tasks])
-
     const onRequest = (url: string) => {
         console.log('onRequest logger');
         taskService.getAllIssues(url)
@@ -65,12 +61,6 @@ function TasksBoard() {
                 .then(data => {console.log('repoDetails:', repoDetails)})
                 .catch(() => console.log('Error can not fetch a data from server'))
         }
-
-        //Get items from our DB
-        fetch(`${API_URL}/api/kanbanboard/GetRepos`)
-            .then(response => response.json())
-            .then(data => {setTasks(data[0].issues)})
-            .catch(() => console.log('Error can not fetch a data from server'));
 
         setTasks(newIssues);
     }
@@ -107,7 +97,7 @@ function TasksBoard() {
 
                 <div className="row mb-3">
                     <div className="col">
-                    <p>
+                        <p>
                             <a href={organization.url}>{organization.login}</a>
                             <span>{` > `}</span>
                             <a href={html_url}>{name}</a>
@@ -120,11 +110,10 @@ function TasksBoard() {
                 <div className="row">
                     <DndContext
                         onDragOver={onDragOver}
-                        onDragEnd={onDragEnd}
                     >
                         <div className="d-flex gap-3">
                             <>
-                            {COLUMNS.map((col) => {
+                                {COLUMNS.map((col) => {
                                     return (<TasksColumn
                                         key={col.id}
                                         column={col}
@@ -177,10 +166,6 @@ function TasksBoard() {
                 return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
-    }
-
-    function onDragEnd() {
-        console.log('onDragEnd logger')
     }
 }
 export default TasksBoard;

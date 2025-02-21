@@ -37,7 +37,7 @@ export default class KanbanService {
     _transformIssue = (issue: any) => {
         let issueState = 'TODO';
         if (issue.assignee && issue.state === 'open') {
-           issueState = 'IN_PROGRESS';
+            issueState = 'IN_PROGRESS';
         } else if (issue.state === 'closed') {
             issueState = 'DONE';
         }
