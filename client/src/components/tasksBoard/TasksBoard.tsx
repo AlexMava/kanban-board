@@ -48,6 +48,7 @@ function TasksBoard() {
     const [tasks, setTasks] = useState<TaskType[]>([]);
     const [repoDetails, setRepoDetails] = useState<RepoDetailsType>(emptyRepo);
     const [searchString, setSearchString] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const API_URL = 'http://localhost:5000';
 
@@ -58,12 +59,16 @@ function TasksBoard() {
         taskService.getRepoDetails(removeLastSlash(url))
             .then(getItemFromGithub)
             .then(loadingData)
-            .catch((e) => console.log('Error ', e))
+            .catch(failedToFetch)
 
         function loadingData() {
             taskService.getData(`${API_URL}/api/kanbanboard/get-repo/?name=${repoName}`)
                 .then(onRepoLoaded)
-                .catch(() => console.log('Error can not fetch a data from server!!!'));
+                .catch(failedToFetch);
+        }
+        function failedToFetch(e: unknown) {
+            console.log('Error', e);
+            setError('Something went wrong! Probably an error establishing a database connection, or your IP-address was blocked by Github.');
         }
     }
 
@@ -87,6 +92,7 @@ function TasksBoard() {
         if (repo && repo?.issues) {
             setRepoDetails(repo);
             setTasks([...repo.issues]);
+            setError('');
         } else {
             setRepoDetails(emptyRepo);
             setTasks([...emptyRepo.issues]);
@@ -123,6 +129,10 @@ function TasksBoard() {
 
     const RepoHeaderContent = organization && stargazers_count ? <RepoHeader /> : null;
 
+    const errorContent = error ?
+        <p className="alert alert-danger" role="alert">{error}</p>
+        : null
+
     return (
         <section>
             <div className="container">
@@ -139,7 +149,8 @@ function TasksBoard() {
                 </div>
 
                 <div className="row mb-3">
-                    <div className="col">{RepoHeaderContent}</div>
+                    <div className="col-12">{RepoHeaderContent}</div>
+                    <div className="col-12">{errorContent}</div>
                 </div>
 
                 <div className="row">
