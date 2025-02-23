@@ -23,6 +23,7 @@
 */.env
 
 ## Phpstorm
+.idea
 .idea/*
 
 npm-debug.log*

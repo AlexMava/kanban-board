@@ -62,12 +62,12 @@ function TasksBoard() {
             .catch(failedToFetch)
 
         function loadingData() {
-            taskService.getData(`${API_URL}/api/kanbanboard/get-repo/?name=${repoName}`)
+            taskService.getData(`${API_URL}/api/kanbanboard/get-repo/${repoName}`)
                 .then(onRepoLoaded)
                 .catch(failedToFetch);
         }
-        function failedToFetch(e: unknown) {
-            console.log('Error', e);
+        function failedToFetch() {
+            console.log('Error');
             setError('Something went wrong! Probably an error establishing a database connection, or your IP-address was blocked by Github.');
         }
     }
