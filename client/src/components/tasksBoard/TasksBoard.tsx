@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ColumnType, TaskType, RepoDetailsType } from "../../types";
 import TasksColumn from "./tasksColumn/TasksColumn";
 
-import { DndContext, DragOverEvent } from "@dnd-kit/core";
+import {DndContext, DragOverEvent} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 import KanbanService from "../../services/KanbanService";
@@ -20,14 +20,29 @@ const COLUMNS: ColumnType[] = [
 function TasksBoard() {
     const emptyRepo = {
         id: 0,
-        name: ' ',
+        name: '',
         stargazers_count: 0,
         html_url: ' ',
         svn_url: ' ',
         organization: {
             url: ' ',
             login: ' ',
-        }
+        },
+        issues: [
+            {
+                id: 0,
+                columnId: '',
+                title: '',
+                content: '',
+                url: '',
+                created_at: '',
+                commentsCount: 0,
+                owner: {
+                    login: '',
+                    homepage: '',
+                }
+            }
+        ]
     }
 
     const [tasks, setTasks] = useState<TaskType[]>([]);
@@ -36,37 +51,46 @@ function TasksBoard() {
 
     const API_URL = 'http://localhost:5000';
 
-    const onRequest = (url: string) => {
-        console.log('onRequest logger');
-        taskService.getAllIssues(url)
-            .then(onIssuesLoaded)
-            .catch(() => console.log('Error by saving issues to the state'))
+    const onRequest = async (url: string) => {
+        url = removeLastSlash(url);
+        const repoName = url.substring(url.lastIndexOf('/') + 1);
 
-        taskService.getRepoDetails(url)
-            .then(onRepoLoaded)
-            .catch(() => console.log('Error by saving repo-details to the state'))
+        taskService.getRepoDetails(removeLastSlash(url))
+            .then(getItemFromGithub)
+            .then(loadingData)
+            .catch((e) => console.log('Error ', e))
+
+        function loadingData() {
+            taskService.getData(`${API_URL}/api/kanbanboard/get-repo/?name=${repoName}`)
+                .then(onRepoLoaded)
+                .catch(() => console.log('Error can not fetch a data from server!!!'));
+        }
     }
 
-    const onIssuesLoaded = (newIssues: TaskType[]) => {
-        const data = {...repoDetails, issues: tasks}
+    const getItemFromGithub = async (repo: RepoDetailsType) => {
+        const data = {...repo}
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         };
 
-        if (tasks.length > 0 && repoDetails.id && repoDetails.name) {
-            fetch(`${API_URL}/api/kanbanboard/AddRepo`, requestOptions)
-                .then(response => response.json())
-                .then(data => {console.log('repoDetails:', repoDetails)})
-                .catch(() => console.log('Error can not fetch a data from server'))
-        }
+        if (repo?.id && repo?.name) {
+            const response = await fetch(`${API_URL}/api/kanbanboard/AddRepo`, requestOptions)
 
-        setTasks(newIssues);
+            const responseData = await response.json();
+            return responseData;
+        }
     }
 
     const onRepoLoaded = (repo: RepoDetailsType) => {
-        setRepoDetails(repo);
+        if (repo && repo?.issues) {
+            setRepoDetails(repo);
+            setTasks([...repo.issues]);
+        } else {
+            setRepoDetails(emptyRepo);
+            setTasks([...emptyRepo.issues]);
+        }
     }
 
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -75,10 +99,29 @@ function TasksBoard() {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onRequest(searchString.replace('https://github.com/', 'https://api.github.com/repos/'));
+        onRequest(searchString.replace('github.com/', 'api.github.com/repos/'));
     }
 
-    const {name, html_url,  stargazers_count, organization } = repoDetails;
+    function removeLastSlash(url: string)
+    {
+        return url.replace(/\/$/, "");
+    }
+
+    const { name, html_url,  stargazers_count, organization } = repoDetails;
+
+    function RepoHeader() {
+        return (
+            <p>
+                <a href={organization.url}>{organization.login}</a>
+                <span>{` > `}</span>
+                <a href={html_url}>{name}</a>
+
+                <b>&emsp;{`${stargazers_count} stars`}</b>
+            </p>
+        );
+    }
+
+    const RepoHeaderContent = organization && stargazers_count ? <RepoHeader /> : null;
 
     return (
         <section>
@@ -91,25 +134,18 @@ function TasksBoard() {
 
                             <button type="submit" className="btn btn-primary">Load issues</button>
                         </form>
-                        <p>As example copy this URL: <code>https://github.com/facebook/react</code></p>
+                        <p>As example use this URL: <code>https://github.com/facebook/react</code></p>
                     </div>
                 </div>
 
                 <div className="row mb-3">
-                    <div className="col">
-                        <p>
-                            <a href={organization.url}>{organization.login}</a>
-                            <span>{` > `}</span>
-                            <a href={html_url}>{name}</a>
-
-                            <b>&emsp;{`${stargazers_count} stars`}</b>
-                        </p>
-                    </div>
+                    <div className="col">{RepoHeaderContent}</div>
                 </div>
 
                 <div className="row">
                     <DndContext
                         onDragOver={onDragOver}
+                        onDragEnd={onDragEnd}
                     >
                         <div className="d-flex gap-3">
                             <>
@@ -166,6 +202,23 @@ function TasksBoard() {
                 return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
+    }
+
+    function onDragEnd() {
+        const data = {
+            id: repoDetails.id,
+            issues: [...tasks]
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+
+        fetch(`${API_URL}/api/kanbanboard/UpdateRepo`, requestOptions)
+            .then(response => response.json())
+            .catch((e) => console.log('Error!', e))
     }
 }
 export default TasksBoard;

@@ -19,7 +19,7 @@ var CONNECTIN_STRING = `mongodb+srv://${DBUSERNAME}:${DBPASSWORD}@${MONGOCLUSTER
 var database;
 app.listen(PORT, () => {
     Mongoclient.connect(CONNECTIN_STRING, (error, client) => {
-       database = client.db(DATABASENAME);
+        database = client.db(DATABASENAME);
         console.log(`The server is running on port ${PORT}`);
     })
 })
@@ -30,29 +30,49 @@ app.get('/api/kanbanboard/GetRepos', (request, response) => {
     });
 });
 
-app.get('/api/kanbanboard/GetOneRepo', (request, response) => {
-    database.collection('repos').findOne({
-        id: request.body.id
-    })
-        .then(function (doc) {
-            if(!doc)
-                console.log('No record found.');
+app.get('/api/kanbanboard/get-repo', (request, response) => {
+    async function run() {
+        try {
+            const repos = database.collection("repos");
+            const query = {name: request.query.name};
 
-            response.send(response);
-        })
-});
+            const repo = await repos.findOne(query);
+            response.json(repo);
+        } catch {
+            console.log('Error by getting the repo')
+        }
+    }
+
+    run().catch(console.dir);
+})
 app.post('/api/kanbanboard/AddRepo', multer().none(), (request, response) => {
+    function addRepo (item) {
+        if (!item) {
+            database.collection('repos').insertOne(request.body);
+            response.json(`Item has been created successfully!!`);
+        } else {
+            response.json(`Item has has not been created!`);
+        }
+    }
+
+    try {
+        database.collection('repos').findOne({
+            id: request.body.id
+        }).then((item) => { addRepo(item) })
+
+    } catch (e) {
+        console.log('Error, something went wrong: Item has not been saved to the DB!', e)
+    }
+})
+
+app.post('/api/kanbanboard/UpdateRepo', multer().none(), (request, response) => {
     function updateRepo (item) {
-        let resMsg = 'saved';
         if (item) {
             database.collection('repos').updateOne({id: request.body.id}, {$set: request.body});
-            resMsg = 'updated';
+            response.json(`Item has been updated successfully!`);
         } else {
-            database.collection('repos').insertOne(request.body);
-            resMsg = 'created';
+            response.json(`Item has not been updated!`);
         }
-        response.json(`Item has been ${resMsg} successfully!`);
-        console.log(`Item has been ${resMsg} successfully!`);
     }
 
     try {
@@ -61,7 +81,7 @@ app.post('/api/kanbanboard/AddRepo', multer().none(), (request, response) => {
         }).then((item) => { updateRepo(item) })
 
     } catch (e) {
-        console.log('Error, something went wrong: Item has not been saved to the DB!')
+        console.log('Error, something went wrong: Item has not been saved to the DB!', e)
     }
 })
 

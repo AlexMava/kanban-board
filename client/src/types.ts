@@ -27,5 +27,6 @@ export type RepoDetailsType = {
     organization: {
         url: string,
         login: string,
-    }
+    },
+    issues: TaskType[]
 }

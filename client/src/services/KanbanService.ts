@@ -10,15 +10,14 @@ export default class KanbanService {
     }
 
     getRepoDetails = async (url: string) => {
-        const res = await this.getResource(url);
+        const details = await this.getResource(url),
+            issues = await this.getResource(`${url}/issues?state=all&per_page=50`);
 
-        return this._transformRepoDetails(res)
+        return {...this._transformRepoDetails(details), issues: issues.map(this._transformIssue)}
     }
 
-    getAllIssues = async (url: string) => {
-        const res = await this.getResource(`${url}/issues?state=all&per_page=50`);
-
-        return res.map(this._transformIssue);
+    getData = async (url: string) => {
+        return await this.getResource(url);
     }
 
     _transformRepoDetails = (repo: any) => {

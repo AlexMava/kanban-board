@@ -7,9 +7,9 @@
     <list default="true" id="fbf6a47f-0e80-4114-81b5-d0b04abb9f26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/services/KanbanService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/KanbanService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serverStart" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.serverStart" />
         <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
@@ -122,7 +122,8 @@
       <workItem from="1740069240905" duration="415000" />
       <workItem from="1740069684299" duration="218000" />
       <workItem from="1740070019560" duration="10978000" />
-      <workItem from="1740119385713" duration="8732000" />
+      <workItem from="1740119385713" duration="35651000" />
+      <workItem from="1740298837425" duration="18363000" />
     </task>
     <servers />
   </component>
