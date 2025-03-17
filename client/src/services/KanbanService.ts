@@ -1,3 +1,5 @@
+import { RepoDetailsType, TaskType } from "../types";
+
 export default class KanbanService {
     getResource = async (url: string) => {
         let res = await fetch(url);
@@ -20,20 +22,20 @@ export default class KanbanService {
         return await this.getResource(url);
     }
 
-    _transformRepoDetails = (repo: any) => {
+    _transformRepoDetails = (repo: RepoDetailsType) => {
         return {
             id: repo.id,
             name: repo.name,
             stargazers_count: repo.stargazers_count,
             html_url: repo.html_url,
             organization: {
-                url: repo.organization ? repo.organization.html_url : '#',
+                html_url: repo.organization ? repo.organization.html_url : '#',
                 login: repo.organization ? repo.organization.login : 'n/a',
             }
         }
     }
 
-    _transformIssue = (issue: any) => {
+    _transformIssue = (issue: TaskType) => {
         let issueState = 'TODO';
         if (issue.assignee && issue.state === 'open') {
             issueState = 'IN_PROGRESS';
@@ -48,11 +50,11 @@ export default class KanbanService {
             id: `${issue.number}`,
             columnId: issueState,
             content: '',
-            url: issue.html_url,
+            html_url: issue.html_url,
             created_at: issue.created_at,
             owner: {
                 login: issue.user ? issue.user?.login : 'n/a',
-                homepage: issue.user ? issue.user?.html_url : '#',
+                html_url: issue.user ? issue.user?.html_url : '#',
             },
             commentsCount: issue.comments || 0
 

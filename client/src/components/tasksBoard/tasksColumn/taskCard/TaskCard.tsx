@@ -24,7 +24,7 @@ function TaskCard({task}: Props) {
         transform: CSS.Transform.toString(transform),
     };
 
-    const { title, id, url, created_at, commentsCount, owner } = task;
+    const { title, id, html_url, created_at, commentsCount, owner } = task;
 
     function getFormatedDate( date: string ) {
         const dateNow = new Date(),
@@ -62,7 +62,7 @@ function TaskCard({task}: Props) {
             {...attributes}
             {...listeners}>
             <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded' style={{touchAction: "none"}}>
-                <a href={url} target='_blank'>
+                <a href={html_url} target='_blank'>
                     <h6>{title}</h6>
                 </a>
 
@@ -72,7 +72,7 @@ function TaskCard({task}: Props) {
                 </p>
 
                 <p>
-                    <a href={owner.homepage} target='_blank'>{`${owner.login}`}</a>
+                    <a href={owner.html_url} target='_blank'>{`${owner.login}`}</a>
                     <span>{` Comments: ${commentsCount}`}</span>
                 </p>
             </div>

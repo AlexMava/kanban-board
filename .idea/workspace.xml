@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fbf6a47f-0e80-4114-81b5-d0b04abb9f26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/footer/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/KanbanService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/KanbanService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,27 +40,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/projects/test-tasks/kanban-board&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.build.executor&quot;: &quot;Run&quot;,
-    &quot;npm.serverStart.executor&quot;: &quot;Run&quot;,
-    &quot;npm.start (1).executor&quot;: &quot;Run&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\projects\\test-tasks\\kanban-board\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/projects/test-tasks/books-library",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.serverStart.executor": "Run",
+    "npm.start (1).executor": "Run",
+    "npm.start.executor": "Run",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "D:\\projects\\test-tasks\\kanban-board\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/client/package.json" />
@@ -134,7 +134,7 @@
       <workItem from="1741074297408" duration="1237000" />
       <workItem from="1741161916374" duration="1102000" />
       <workItem from="1741253772231" duration="2556000" />
-      <workItem from="1742201339540" duration="223000" />
+      <workItem from="1742201339540" duration="4555000" />
     </task>
     <servers />
   </component>

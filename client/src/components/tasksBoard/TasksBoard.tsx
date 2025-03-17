@@ -25,7 +25,7 @@ function TasksBoard() {
         html_url: ' ',
         svn_url: ' ',
         organization: {
-            url: ' ',
+            html_url: ' ',
             login: ' ',
         },
         issues: [
@@ -34,13 +34,22 @@ function TasksBoard() {
                 columnId: '',
                 title: '',
                 content: '',
-                url: '',
+                html_url: '',
                 created_at: '',
                 commentsCount: 0,
                 owner: {
                     login: '',
-                    homepage: '',
-                }
+                    html_url: '',
+                },
+                assignee: '',
+                state: '',
+                number: 0,
+                pull_request: '',
+                user: {
+                    login: '',
+                    html_url: '',
+                },
+                comments: 0,
             }
         ]
     }
@@ -118,7 +127,7 @@ function TasksBoard() {
     function RepoHeader() {
         return (
             <p>
-                <a href={organization.url}>{organization.login}</a>
+                <a href={organization.html_url}>{organization.login}</a>
                 <span>{` > `}</span>
                 <a href={html_url}>{name}</a>
 

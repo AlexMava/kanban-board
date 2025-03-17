@@ -10,13 +10,22 @@ export type TaskType = {
     columnId: Id;
     title: string;
     content: string;
-    url: string;
+    html_url: string;
     created_at: string;
     commentsCount: number;
     owner: {
         login: string,
-        homepage: string,
-    }
+        html_url: string,
+    },
+    assignee: string,
+    state: string,
+    number: number,
+    pull_request: string,
+    user: {
+        login: string,
+        html_url: string,
+    },
+    comments: number,
 };
 
 export type RepoDetailsType = {
@@ -25,7 +34,7 @@ export type RepoDetailsType = {
     stargazers_count: number,
     html_url: string,
     organization: {
-        url: string,
+        html_url: string
         login: string,
     },
     issues: TaskType[]
