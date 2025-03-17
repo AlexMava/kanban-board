@@ -1,11 +1,6 @@
-import { useState, useEffect } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 function Footer() {
-    const [year, setYear] = useState(new Date().getFullYear());
-
-    useEffect(() => {
-        setYear(new Date().getFullYear());
-    }, []);
+    const year = new Date().getFullYear();
 
     return (
         <footer className="py-4">

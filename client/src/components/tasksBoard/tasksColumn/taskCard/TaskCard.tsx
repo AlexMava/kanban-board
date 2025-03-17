@@ -61,7 +61,7 @@ function TaskCard({task}: Props) {
             style={style}
             {...attributes}
             {...listeners}>
-            <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded'>
+            <div className='d-flex flex-column gap-2 p-4 my-2 bg-white rounded' style={{touchAction: "none"}}>
                 <a href={url} target='_blank'>
                     <h6>{title}</h6>
                 </a>

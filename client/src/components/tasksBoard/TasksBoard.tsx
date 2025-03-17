@@ -50,7 +50,7 @@ function TasksBoard() {
     const [searchString, setSearchString] = useState<string>('');
     const [error, setError] = useState<string>('');
 
-    const API_URL = 'http://localhost:5000';
+    const API_URL = 'http://192.168.0.104:5000';
 
     const onRequest = async (url: string) => {
         url = removeLastSlash(url);

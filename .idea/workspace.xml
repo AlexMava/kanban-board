@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbf6a47f-0e80-4114-81b5-d0b04abb9f26" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/footer/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/TasksBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/tasksBoard/tasksColumn/taskCard/TaskCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +46,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/projects/wla/prokachka-v8-alexander-malych-master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projects/test-tasks/kanban-board&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -95,8 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.serverStart" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.serverStart" />
         <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
@@ -125,7 +124,17 @@
       <workItem from="1740070019560" duration="10978000" />
       <workItem from="1740119385713" duration="35651000" />
       <workItem from="1740298837425" duration="20556000" />
-      <workItem from="1740327846424" duration="7622000" />
+      <workItem from="1740327846424" duration="7952000" />
+      <workItem from="1740575882804" duration="38000" />
+      <workItem from="1740733407043" duration="232000" />
+      <workItem from="1740938352658" duration="2957000" />
+      <workItem from="1740993136688" duration="147000" />
+      <workItem from="1741004281908" duration="261000" />
+      <workItem from="1741006398759" duration="9226000" />
+      <workItem from="1741074297408" duration="1237000" />
+      <workItem from="1741161916374" duration="1102000" />
+      <workItem from="1741253772231" duration="2556000" />
+      <workItem from="1742201339540" duration="223000" />
     </task>
     <servers />
   </component>
